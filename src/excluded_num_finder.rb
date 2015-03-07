@@ -1,5 +1,4 @@
 class ExcludedNumFinder
-
   # 合計値から引数を順に減算し、残った値を除外されていた値として得る方法
   # 計算量はO(n)
   # メモリ占有は 引数 + Fixnum2つ分(=Fixnum 10002個分)
@@ -49,12 +48,12 @@ class ExcludedNumFinder
 
   def self.validate_argument(ary)
     raise OutOfRangeError.new if ary.size >= 10000
-    # 以下、バリデーション項目は多くありますが、ディスカッションの観点とはあまり関係ないと思われるため省略します。
+    # 以下、バリデーションの実装については、ディスカッションの観点とはあまり関係ないと思われるため省略します。
   end
 
   def self.validate_result(nums)
     raise IllegalArgumentError.new unless nums.size == 1
-    # 以下、バリデーション項目は多くありますが、ディスカッションの観点とはあまり関係ないと思われるため省略します。
+    # 以下、バリデーションの実装については、ディスカッションの観点とはあまり関係ないと思われるため省略します。
   end
 
   class OutOfRangeError < StandardError
@@ -63,4 +62,15 @@ class ExcludedNumFinder
   class IllegalArgumentError < StandardError
   end
 
+  # for command line invocation
+  case ARGV[0]
+    when '-b'
+      p ExcludedNumFinder.find_by_subtraction(eval ARGV[1])
+    when '-d'
+      p ExcludedNumFinder.find_by_deletion(eval ARGV[1])
+    when '-s'
+      p ExcludedNumFinder.find_by_search(eval ARGV[1])
+    else
+      raise ArgumentError.new 'usage: excluded_num_finder.rb [-b | -d | -s] <array of nums>'
+  end
 end
