@@ -15,11 +15,6 @@ class ExcludedNumFinder
     ary.inject(sum_of_1_to_10000, :-)
   end
 
-  def self.validate_argument(ary)
-    raise OutOfRangeError.new if ary.size >= 10000
-    # 以下、バリデーション項目は多くありますが、ディスカッションの観点とはあまり関係ないと思われるため省略します。
-  end
-
   # 引数一つ一つを全てそろっている数字の配列から消去し、最後に残った物が除外されていた値として得る方法
   # 計算量は O1(n/2) * O2(n/2)
   #  O1 ⇒ Eachの計算量、 O2 ⇒ Array#deleteの計算量
@@ -50,6 +45,11 @@ class ExcludedNumFinder
     correct_nums.each do |num|
       return num unless ary.include?(num)
     end
+  end
+
+  def self.validate_argument(ary)
+    raise OutOfRangeError.new if ary.size >= 10000
+    # 以下、バリデーション項目は多くありますが、ディスカッションの観点とはあまり関係ないと思われるため省略します。
   end
 
   def self.validate_result(nums)
