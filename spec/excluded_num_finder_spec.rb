@@ -3,7 +3,7 @@ require_relative '../src/excluded_num_finder'
 
 describe 'ExcludedNumFinder' do
   let(:excluded) { SecureRandom.random_number(10000) }
-  let(:input_ary) { build_input_ary(excluded)}
+  let(:input_ary) { build_input_ary(excluded) }
 
   describe 'find by subtraction' do
     context 'finds and returns excluded number from a number array' do
@@ -14,30 +14,27 @@ describe 'ExcludedNumFinder' do
 
     describe 'error handling' do
       context 'raises an exception with an illegal argument' do
-        it 'has more than 9999 elements' do
-          excluded = SecureRandom.random_number(10000)
-          ary = input_ary << excluded
-          expect { ExcludedNumFinder.find_by_subtraction(ary) }.to raise_error(ExcludedNumFinder::OutOfRangeError)
+        # 以下、バリデーションテストの実装については、1例を除いて省略します。
+        # (ディスカッションの観点とはあまり関係ないと思われるため)
+        # 残りは観点のみ記述してPendingしておきます。
+
+        describe 'illegal number of elements' do
+          it 'has more than 9999 elements' do
+            excluded = SecureRandom.random_number(10000)
+            ary = input_ary << excluded
+            expect { ExcludedNumFinder.find_by_subtraction(ary) }.to raise_error(ExcludedNumFinder::OutOfRangeError)
+          end
+
+          it 'has less than 9999 elements'
         end
 
-        # 以下、バリデーション項目は多くありますが、ディスカッションの観点とはあまり関係ないと思われるため省略します。
-        it 'has less than 9999 elements' do
-          skip 'skipped'
+        describe 'illegal range of numbers' do
+          it 'includes a number 0 or less'
+          it 'includes a number 10001 or more'
         end
-        it 'includes 10000 or more numbers' do
-          skip 'skipped'
-        end
-        it 'includes 10001 or more' do
-          skip 'skipped'
-        end
-        it 'includes a number 0 or less' do
-          skip 'skipped'
-        end
-        it 'includes a number 10001 or more' do
-          skip 'skipped'
-        end
-        it 'includes incalculable element' do
-          skip 'skipped'
+
+        describe 'illegal type of elements' do
+          it 'includes non-integer element'
         end
       end
     end
